@@ -21,7 +21,7 @@ public class App {
     Config config = new Config();
     config.useSingleServer().setAddress("redis://127.0.0.1:6379");
     // 看门狗监听间隔时间
-    // <b>开启看门狗后 持有锁的redisson实例关闭后锁将自动释放 但业务线程异常不会自动释放，一定要try catch 防止死锁</b>
+    // <b>开启看门狗后 持有锁的redisson实例关闭后锁将自动释放 但业务线程(终止)异常不会自动释放，一定要try catch 或终止前手动释放锁 防止死锁</b>
     config.setLockWatchdogTimeout(800L);
     RedissonClient redisson = Redisson.create(config);
     // 开启两个异步线程竞争
